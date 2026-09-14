@@ -1,0 +1,24 @@
+# ===== 编译产物（不需要进版本库）=====
+bin/
+obj/
+*.exe
+*.o
+*.a
+*.d
+
+# ===== Code::Blocks 自动生成的文件 =====
+*.depend
+*.layout
+*.workspace
+default.conf
+
+# ===== 编辑器 / IDE =====
+.vscode/
+.idea/
+*.swp
+*~
+
+# ===== 系统文件 =====
+Thumbs.db
+desktop.ini
+.DS_Store
