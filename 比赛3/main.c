@@ -1,13 +1,14 @@
 #include <stdio.h>
 int main()
 {
-    int s,v,t;
-    scanf("%d%d",&s,&v);
-    t=s/v;
-    if(s%v!=0){t=t+1;}
-    t=t+10;
-    t=480-t;
-    while(t<0){t=t+1440;}
-    printf("%02d:%02d\n",t/60,t%60);
+    int r,h,sum,v;
+    scanf("%d%d",&h,&r);
+    v=314*r*r*h;
+    sum=2000000/v;
+    if(2000000%v!=0)
+    {
+        sum++;
+    }
+    printf("%d\n",sum);
     return 0;
 }
