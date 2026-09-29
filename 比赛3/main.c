@@ -1,14 +1,11 @@
 #include <stdio.h>
-int main(void)
+#include <math.h>
+int main()
 {
-    double a;
-    long long b = 4000000000;
-    int cnt;
-    int x = cnt + 1;
-
-    scanf("%f", &a);
-    printf("%d\n", b);
-    printf("%d\n", x);
-
+    double a,b,c,p,area;
+    scanf("%lf%lf%lf",&a,&b,&c);
+    p=(a+b+c)/2;
+    area=sqrt(p*(p-a)*(p-b)*(p-c));
+    printf("%.1f",area);
     return 0;
 }
