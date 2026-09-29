@@ -1,11 +1,13 @@
 #include <stdio.h>
-#include <math.h>
 int main()
 {
-    double a,b,c,p,area;
-    scanf("%lf%lf%lf",&a,&b,&c);
-    p=(a+b+c)/2;
-    area=sqrt(p*(p-a)*(p-b)*(p-c));
-    printf("%.1f",area);
+    int s,v,t;
+    scanf("%d%d",&s,&v);
+    t=s/v;
+    if(s%v!=0){t=t+1;}
+    t=t+10;
+    t=480-t;
+    while(t<0){t=t+1440;}
+    printf("%02d:%02d\n",t/60,t%60);
     return 0;
 }
