@@ -1,14 +1,11 @@
 #include <stdio.h>
 int main()
 {
-    int r,h,sum,v;
-    scanf("%d%d",&h,&r);
-    v=314*r*r*h;
-    sum=2000000/v;
-    if(2000000%v!=0)
-    {
-        sum++;
-    }
-    printf("%d\n",sum);
+    int a,b,c,d,e;
+    scanf("%d%d%d%d",&a,&b,&c,&d);
+    a=a*60;
+    c=c*60;
+    e=c+d-a-b;
+    printf("%d %d",e/60,e%60);
     return 0;
 }

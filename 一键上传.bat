@@ -43,9 +43,9 @@ echo       自动找到最近改动的源文件:
 echo           %SRC%
 echo           修改时间 %SMT%   文件 %SNM%
 echo.
-echo %SRC% | findstr /i /b /c:"D:\cpp\" >nul
-if errorlevel 1 echo       [提醒] 这个文件不在 D:\cpp 里, 建议写到工程 D:\cpp\比赛3\main.c
-if errorlevel 1 echo              在工程里按 F9 才能编译出程序 ^(E:\比赛 是中文路径, 链接会失败^)
+set "HEAD=%SRC:~0,7%"
+if /i not "%HEAD%"=="D:\cpp\" echo       [提醒] 这个文件不在 D:\cpp 里, 建议写到工程 D:\cpp\比赛3\main.c
+if /i not "%HEAD%"=="D:\cpp\" echo              在工程里按 F9 才能编译出程序 ^(E:\比赛 是中文路径, 链接会失败^)
 echo.
 
 set "NAME="
