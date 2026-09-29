@@ -1,14 +1,9 @@
 #include <stdio.h>
-int main(void)
+int main()
 {
     double a;
-    long long b = 4000000000;
-    int cnt;
-    int x = cnt + 1;
-
-    scanf("%f", &a);
-    printf("%d\n", b);
-    printf("%d\n", x);
-
+    int n;
+    scanf("%lf%d",&a,&n);
+    printf("%.3f\n%d\n",a/n,n*2);
     return 0;
 }
