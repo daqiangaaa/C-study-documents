@@ -1,5 +1,5 @@
-#include <stdio.h>>
-#include <stdlib.h>>
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 int main(void)
 {
@@ -9,26 +9,26 @@ int main(void)
     int tries=0;
     while (guess != secret && tries< 7)
     {
-        printf("«Î ‰»Î1~100÷Æº‰µƒ ˝");
+        printf("ËØ∑ËæìÂÖ•1~100‰πãÈó¥ÁöÑÊï∞");
         scanf("%d",&guess);
         tries++;
         if (guess > secret)
         {
-            printf("¥Û¡À\n") ;
+            printf("Â§ß‰∫Ü\n") ;
         }
         else if(guess < secret)
         {
-            printf("–°¡À\n");
+            printf("Â∞è‰∫Ü\n");
         }
         else
         {
-            printf("≤¬∂‘¡À\n");
+            printf("ÁåúÂØπ‰∫Ü\n");
             break;
         }
     }
     if (guess != secret)
     {
-        printf("≤¬¥Ì¡À£¨’˝»∑¥∞∏ «%d\nœ¬¥Œº””Õ≈∂",secret);
+        printf("ÁåúÈîô‰∫ÜÔºåÊ≠£Á°ÆÁ≠îÊ°àÊòØ%d\n‰∏ãÊ¨°Âä†Ê≤πÂì¶",secret);
     }
     return 0;
 }
