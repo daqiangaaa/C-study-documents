@@ -7,14 +7,19 @@ echo ==============================================
 echo             题 解 一 键 上 传
 echo ==============================================
 
-rem ---------- 自动读取加速器(系统代理) ----------
 set "GITP="
+set "RURL="
+for /f "delims=" %%u in ('git remote get-url origin 2^>nul') do set "RURL=%%u"
+echo %RURL% | findstr /i "github.com" >nul
+if errorlevel 1 goto noproxy
+
 set "PEN="
 set "PSRV="
 for /f "tokens=2,*" %%a in ('reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable 2^>nul ^| findstr /i "ProxyEnable"') do set "PEN=%%b"
 for /f "tokens=2,*" %%a in ('reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer 2^>nul ^| findstr /i "ProxyServer"') do set "PSRV=%%b"
 if /i "%PEN%"=="0x1" if not "%PSRV%"=="" set "GITP=-c http.proxy=http://%PSRV%"
-if "%GITP%"=="" (echo [代理] 没检测到加速器, 本次直连) else (echo [代理] 检测到加速器 %PSRV%, 本次走代理)
+:noproxy
+if "%GITP%"=="" (echo [上传目标] %RURL%  ^(直连^)) else (echo [上传目标] %RURL%  ^(经加速器 %PSRV%^))
 
 echo.
 echo [1/3] 归档当前题解
@@ -36,7 +41,7 @@ git add -A
 git commit -m "%MSG%"
 
 echo.
-echo [3/3] 上传到 GitHub
+echo [3/3] 上传...
 git %GITP% push -u origin main
 if not errorlevel 1 goto ok
 
@@ -49,10 +54,9 @@ if not errorlevel 1 goto ok
 echo.
 echo ==============================================
 echo   还是不行, 按顺序检查:
-echo   1. 加速器是不是开着? 里面 GitHub 这项加速勾上了吗?
-echo   2. 把加速器关掉再双击一次(有时直连反而通)
-echo   3. 加速器试试点"以管理员身份运行"
-echo   4. 都不行就换 Gitee: https://gitee.com  国内直连
+echo   1. 账号密码/令牌 输对了吗?
+echo   2. 远程仓库地址对不对?  双击 "换成Gitee.bat" 重设
+echo   3. 若是 GitHub: 加速器开了吗? GitHub 那项勾了吗?
 echo ==============================================
 pause >nul
 exit /b 1
@@ -60,8 +64,7 @@ exit /b 1
 :ok
 echo.
 echo ==============================================
-echo   上传成功!
-echo   https://github.com/daqiangaaa/C-study-documents
+echo   上传成功!   %RURL%
 echo ==============================================
 pause >nul
 exit /b 0
