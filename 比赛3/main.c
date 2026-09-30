@@ -1,38 +1,16 @@
-#include  <stdio.h>
-int gcd(int x,int y)
-{
-    while(y!=0)
-    {
-        int s=x%y;
-        x=y;
-        y=s;
-    }
-    return x;
-}
+#include <stdio.h>
+
 int main()
 {
-    int a,b,n,t,i,f,sum,den;
-    scanf("%d",&t);
-    for(i=0; i<t; i++)
+    long long a, b, k;
+
+    while (scanf("%lld%lld", &a, &b) == 2)
     {
-        scanf("%d%d",&a,&b);
-        sum=2*a*b;
-        if(sum==0)
-        {
-            printf("0\n");
-            continue;
-        }
-        n=a+b;
-        den=n*(n-1);
-        f=gcd(sum,den);
-        if(den/f==1)
-        {
-            printf("%d\n",sum/f);
-        }
-        else
-        {
-            printf("%d/%d\n",sum/f,den/f);
-        }
+        k = (a + b) / 3;
+        if (a < k) k = a;
+        if (b < k) k = b;
+        printf("%lld\n", k);
     }
+
     return 0;
 }
