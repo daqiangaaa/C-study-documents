@@ -13,7 +13,7 @@ set "RURL="
 for /f "delims=" %%u in ('git remote get-url origin 2^>nul') do set "RURL=%%u"
 if "%RURL%"=="" (
   echo [错误] 没有配置 origin 远程仓库, 请先双击 "换成Gitee" 配一个。
-  pause >nul
+  pause
   exit /b 1
 )
 
@@ -104,7 +104,7 @@ echo   1. 账号密码/令牌 输对了吗?
 echo   2. 远程仓库地址对不对?  双击 "换成Gitee.bat" 重设
 echo   3. 若是 GitHub: 加速器开了吗? GitHub 那项勾了吗?
 echo ==============================================
-pause >nul
+pause
 exit /b 1
 
 :ghsync
@@ -146,5 +146,5 @@ echo.
 echo ==============================================
 echo   全部完成!   %RURL%
 echo ==============================================
-pause >nul
+pause
 exit /b 0
