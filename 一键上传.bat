@@ -29,7 +29,7 @@ if /i "%PEN%"=="0x1" if not "%PSRV%"=="" set "GITP=-c http.proxy=http://%PSRV%"
 if "%GITP%"=="" (echo [上传目标] %RURL%  ^(直连^)) else (echo [上传目标] %RURL%  ^(经加速器 %PSRV%^))
 echo.
 
-echo [1/3] 归档当前题解
+echo [1/4] 归档当前题解
 echo.
 
 set "SRC="
@@ -79,7 +79,7 @@ echo       [警告] 没找到任何 .c 文件, 这次不归档。
 echo.
 
 :commit
-echo [2/3] 记录改动
+echo [2/4] 记录改动
 set "MSG="
 set /p "MSG=      这次干了啥 (回车 = 自动写日期): "
 if "%MSG%"=="" set "MSG=更新 %date%"
@@ -87,15 +87,15 @@ git add -A
 git commit -m "%MSG%"
 
 echo.
-echo [3/3] 上传...
+echo [3/4] 上传到 Gitee...
 git %GITP% push -u origin main
-if not errorlevel 1 goto ok
+if not errorlevel 1 goto ghsync
 
 echo.
 echo       第一次没成, 合并远程已有内容后再传一次...
 git %GITP% pull origin main --allow-unrelated-histories --no-rebase --no-edit
 git %GITP% push -u origin main
-if not errorlevel 1 goto ok
+if not errorlevel 1 goto ghsync
 
 echo.
 echo ==============================================
@@ -107,10 +107,44 @@ echo ==============================================
 pause >nul
 exit /b 1
 
+:ghsync
+echo.
+echo [4/4] 同步到 GitHub...
+git remote get-url github >nul 2>&1
+if errorlevel 1 goto nogh
+
+set "GPEN="
+set "GPSRV="
+for /f "tokens=2,*" %%a in ('reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable 2^>nul ^| findstr /i "ProxyEnable"') do set "GPEN=%%b"
+for /f "tokens=2,*" %%a in ('reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer 2^>nul ^| findstr /i "ProxyServer"') do set "GPSRV=%%b"
+set "GGITP="
+if /i "%GPEN%"=="0x1" if not "%GPSRV%"=="" set "GGITP=-c http.proxy=http://%GPSRV%"
+
+git %GGITP% push github main
+if not errorlevel 1 goto ghok
+
+echo       GitHub 第一次没成, 合并后再试一次...
+git %GGITP% pull github main --allow-unrelated-histories --no-rebase --no-edit -X ours
+git %GGITP% push github main
+if not errorlevel 1 goto ghok
+
+echo.
+echo       [提醒] Gitee 已经上传好了, 这次 GitHub 没同步上。
+echo              想补同步: 双击桌面的 "推送到GitHub"
+goto ok
+
+:ghok
+echo       GitHub 已同步。
+goto ok
+
+:nogh
+echo       (没有配置 github 远程, 跳过)
+goto ok
+
 :ok
 echo.
 echo ==============================================
-echo   上传成功!   %RURL%
+echo   全部完成!   %RURL%
 echo ==============================================
 pause >nul
 exit /b 0
