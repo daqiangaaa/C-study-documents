@@ -1,19 +1,24 @@
 #include <stdio.h>
 int main()
 {
-    double m,h,a;
-    scanf("%lf%lf",&m,&h);
-    a=(m/h)/h;
-    if(a<18.5)
+    int t,n,a,i,k,b;
+    scanf("%d",&t);
+    for(i=0; i<t; i++)
     {
-        printf("Underweight\n");
-    }
-    else if(a<24)
-    {
-        printf("Normal\n");
-    }
-    else
-    {
-        printf("%g\nOverweight\n",a);
+        int c=0;
+        long long cnt=0;
+        scanf("%d%d",&n,&a);
+        for(k=0; k<n; k++)
+        {
+            scanf("%d",&b);
+            if(b<=c)
+            {
+                long long step=(c-b)/a+1;
+                cnt=cnt+step;
+                b=b+a*step;
+            }
+            c=b;
+        }
+        printf("%lld\n",cnt);
     }
 }
