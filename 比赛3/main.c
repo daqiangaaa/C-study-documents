@@ -1,37 +1,22 @@
 #include <stdio.h>
 int main()
 {
-    int a,i,isprime;
-    int cnt=0;
-    while(scanf("%d",&a)==1)
+    int n;
+    int judge=0;
+    scanf("%d",&n);
+    if(n%100==0)
     {
-        if(a<=0)
+        if(n%400==0)
         {
-            break;
-        }
-        cnt++;
-        if(a==1||a==2)
-        {
-            printf("%d: no\n",cnt);
-            continue;
-        }
-        isprime=1;
-        for(i=2; i*i<=a; i++)
-        {
-            if(a%i==0)
-            {
-                isprime=0;
-                break;
-            }
-        }
-        if(isprime)
-        {
-            printf("%d: yes\n",cnt);
-        }
-        else
-        {
-            printf("%d: no\n",cnt);
+            judge=1;
         }
     }
-    return 0;
+    else
+    {
+        if(n%4==0)
+        {
+            judge=1;
+        }
+    }
+    printf("%d",judge==1);
 }
