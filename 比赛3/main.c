@@ -1,22 +1,19 @@
 #include <stdio.h>
 int main()
 {
-    int n;
-    int judge=0;
-    scanf("%d",&n);
-    if(n%100==0)
+    double m,h,a;
+    scanf("%lf%lf",&m,&h);
+    a=(m/h)/h;
+    if(a<18.5)
     {
-        if(n%400==0)
-        {
-            judge=1;
-        }
+        printf("Underweight\n");
+    }
+    else if(a<24)
+    {
+        printf("Normal\n");
     }
     else
     {
-        if(n%4==0)
-        {
-            judge=1;
-        }
+        printf("%g\nOverweight\n",a);
     }
-    printf("%d",judge==1);
 }
