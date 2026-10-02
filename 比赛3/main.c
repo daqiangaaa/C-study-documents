@@ -1,24 +1,13 @@
 #include <stdio.h>
-int main()
+
+int main(void)
 {
-    int t,n,a,i,k,b;
-    scanf("%d",&t);
-    for(i=0; i<t; i++)
+    int T, n, i;
+    if (scanf("%d", &T) != 1) return 0;
+    for (i = 0; i < T; i++)
     {
-        int c=0;
-        long long cnt=0;
-        scanf("%d%d",&n,&a);
-        for(k=0; k<n; k++)
-        {
-            scanf("%d",&b);
-            if(b<=c)
-            {
-                long long step=(c-b)/a+1;
-                cnt=cnt+step;
-                b=b+a*step;
-            }
-            c=b;
-        }
-        printf("%lld\n",cnt);
+        scanf("%d", &n);
+        printf("szyd\n");
     }
+    return 0;
 }
