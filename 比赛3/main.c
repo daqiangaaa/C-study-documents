@@ -1,55 +1,15 @@
 #include <stdio.h>
-
-int main(void)
+int main()
 {
-    static char a[1000005];
-    if (scanf("%s", a) != 1) return 0;
-
-    int i;
-    int judge = 0;
-    int cntk = 0, cntu = 0, cntn = 0;
-
-    for (i = 0; a[i] != '\0'; i++)
-    {
-        if (a[i] == 'K')
-        {
-            if (judge != 0 && judge != 1)
-            {
-                judge = -1;
-                break;
-            }
-            judge = 1;
-            cntk++;
+    char a[105];
+    scanf("%s",a);
+    int last,i,b;
+    for(last=0;a[last]!='\0';last++){}
+    for(last;last>0;last=last-1){
+            b=last;
+        for(i=0;i<b;i++){
+            printf("%c",a[i]);
         }
-        else if (a[i] == 'U')
-        {
-            if (judge != 1 && judge != 2)
-            {
-                judge = -1;
-                break;
-            }
-            judge = 2;
-            cntu++;
-        }
-        else if (a[i] == 'N')
-        {
-            if (judge != 2 && judge != 3)
-            {
-                judge = -1;
-                break;
-            }
-            judge = 3;
-            cntn++;
-        }
-        else
-        {
-            judge = -1;
-            break;
-        }
+    printf("\n");
     }
-    if (judge == 3 && (cntn == cntk || cntn == cntu))
-        judge = 4;
-
-    printf(judge == 4 ? "YES\n" : "NO\n");
-    return 0;
 }
