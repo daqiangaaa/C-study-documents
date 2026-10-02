@@ -1,15 +1,23 @@
 #include <stdio.h>
 int main()
 {
-    char a[105];
-    scanf("%s",a);
-    int last,i,b;
-    for(last=0;a[last]!='\0';last++){}
-    for(last;last>0;last=last-1){
-            b=last;
-        for(i=0;i<b;i++){
-            printf("%c",a[i]);
+    int n,m,a[105],i,b,k;
+    scanf("%d%d",&n,&m);
+    for(i=0; i<n; i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    for(k=0; k<m; k++)
+    {
+        int judge=1;
+        scanf("%d",&b);
+        for(i=0; i<n; i++)
+        {
+            if(a[b-1]>a[i])
+            {
+                judge++;
+            }
         }
-    printf("\n");
+        printf("%d\n",judge);
     }
 }
