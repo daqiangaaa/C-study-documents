@@ -30,6 +30,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-Werror" />
 		</Compiler>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
