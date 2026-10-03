@@ -1,23 +1,19 @@
 #include <stdio.h>
 int main()
 {
-    int n,m,a[105],i,b,k;
-    scanf("%d%d",&n,&m);
-    for(i=0; i<n; i++)
+    int t,i;
+    long long a,b,c;
+    scanf("%d",&t);
+    for(i=0; i<t; i++)
     {
-        scanf("%d",&a[i]);
-    }
-    for(k=0; k<m; k++)
-    {
-        int judge=1;
-        scanf("%d",&b);
-        for(i=0; i<n; i++)
+        scanf("%lld%lld%lld",&a,&b,&c);
+        if(a%3==b%3||a%3==c%3||b%3==c%3)
         {
-            if(a[b-1]>a[i])
-            {
-                judge++;
-            }
+            printf("YES\n");
         }
-        printf("%d\n",judge);
+        else
+        {
+            printf("NO\n");
+        }
     }
 }
