@@ -1,38 +1,17 @@
 #include <stdio.h>
 int main()
 {
-    int T,n,k,i;
-    scanf("%d",&T);
-    while(T>0)
+    long long a;
+    while(scanf("%lld",&a)!=EOF)
     {
-        T--;
-        int judge=0,ok=1;
-        scanf("%d%d",&n,&k);
-        char s[105];
-        scanf("%s",s);
-        for(i=0; i<n; i++)
+        if(a>2&&a%3==0)
         {
-            if(s[i]=='a')
-            {
-                judge++;
-            }
-            if(judge>k)
-            {
-                ok=0;
-                break;
-            }
-            if(s[i]=='b')
-            {
-                judge=0;
-            }
-        }
-        if(ok==0)
-        {
-            printf("wuwuwu\n");
+            printf("Yes\n");
         }
         else
         {
-            printf("she love me\n");
+            printf("No\n");
         }
     }
+    return 0;
 }
