@@ -1,17 +1,29 @@
 #include <stdio.h>
-int main()
+int main(void)
 {
-    long long a;
-    while(scanf("%lld",&a)!=EOF)
+    char a[105];
+    char r[110];
+    int i,d;
+    while(scanf("%s",a)==1)
     {
-        if(a>2&&a%3==0)
+        int len=0,carry=0,k=0;
+        for(i=0; a[i]!='\0'; i++)
         {
-            printf("Yes\n");
+            len++;
         }
-        else
+        for(i=len-1; i>=0; i--)
         {
-            printf("No\n");
+            d=(a[i]-'0')*2+carry;
+            r[k]=d%10;
+            carry=d/10;
+            k++;
         }
+        if(carry>0)
+        {
+            r[k]=carry;
+            k++;
+        }
+        for(i=k-1; i>=0; i--)printf("%d",r[i]);
+        printf("\n");
     }
-    return 0;
 }
