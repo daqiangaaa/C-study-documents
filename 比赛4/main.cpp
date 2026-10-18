@@ -1,19 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
+struct stu
+{
+    int id;
+    int score;
+};
 int main()
 {
+    stu p[1005];
     int n;
-    double a[1005]= {0};
     cin>>n;
     for(int i=0; i<n; i++)
     {
-        cin>>a[i];
+        cin>>p[i].id>>p[i].score;
     }
-    sort(a,a+n,greater <double>());
-    double sum=0.0;
-    for(int i=1; i<n-1; i++)
+    for (int i = 0; i < n - 1; i++)
     {
-        sum+=a[i];
+        for (int j = 0; j < n - 1 - i; j++)
+        {
+            if (p[j].score<p[j + 1].score)
+            {
+                stu t = p[j];
+                p[j] = p[j + 1];
+                p[j + 1] = t;
+            }
+        }
     }
-    printf("%.2f",sum/(n-2));
+    for(int i=0; i<n; i++)
+    {
+        cout<<p[i].id<<" "<<p[i].score<<'\n';
+    }
 }
