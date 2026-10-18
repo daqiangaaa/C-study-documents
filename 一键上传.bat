@@ -33,18 +33,19 @@ echo [1/4] 归档当前题解
 echo.
 
 set "SRC="
-for /f "usebackq delims=" %%F in (`powershell -NoProfile -Command "$all=@(); $all += Get-ChildItem 'D:\cpp' -Recurse -Include *.c -File -ErrorAction SilentlyContinue; $all += Get-ChildItem 'E:\' -Recurse -Depth 1 -File -Filter *.c -ErrorAction SilentlyContinue; $f=$null; foreach($x in $all){ if($x.FullName -like '*\solutions\*' -or $x.FullName -like '*\obj\*' -or $x.FullName -like '*\bin\*' -or $x.FullName -like '*\.git\*' -or $x.FullName -like '*\_recovered\*' -or $x.FullName -like '*\.npm-cache\*'){continue}; if($f -eq $null -or $x.LastWriteTime -gt $f.LastWriteTime){$f=$x} }; if($f){$f.FullName}"`) do set "SRC=%%F"
+for /f "usebackq delims=" %%F in (`powershell -NoProfile -Command "$all=@(); $all += Get-ChildItem 'D:\cpp' -Recurse -Include *.c,*.cpp -File -ErrorAction SilentlyContinue; $all += Get-ChildItem 'E:\' -Recurse -Depth 1 -File -Include *.c,*.cpp -ErrorAction SilentlyContinue; $f=$null; foreach($x in $all){ if($x.FullName -like '*\solutions\*' -or $x.FullName -like '*\obj\*' -or $x.FullName -like '*\bin\*' -or $x.FullName -like '*\.git\*' -or $x.FullName -like '*\_recovered\*' -or $x.FullName -like '*\.npm-cache\*'){continue}; if($f -eq $null -or $x.LastWriteTime -gt $f.LastWriteTime){$f=$x} }; if($f){$f.FullName}"`) do set "SRC=%%F"
 
 if "%SRC%"=="" goto nosrc
 
 for %%A in ("%SRC%") do set "SMT=%%~tA"
 for %%A in ("%SRC%") do set "SNM=%%~nxA"
+for %%A in ("%SRC%") do set "SEX=%%~xA"
 echo       自动找到最近改动的源文件:
 echo           %SRC%
 echo           修改时间 %SMT%   文件 %SNM%
 echo.
 set "HEAD=%SRC:~0,7%"
-if /i not "%HEAD%"=="D:\cpp\" echo       [提醒] 这个文件不在 D:\cpp 里, 建议写到工程 D:\cpp\比赛3\main.c
+if /i not "%HEAD%"=="D:\cpp\" echo       [提醒] 这个文件不在 D:\cpp 里, 建议写到工程 D:\cpp\比赛3\main.c 或 D:\cpp\比赛4\main.cpp
 if /i not "%HEAD%"=="D:\cpp\" echo              在工程里按 F9 才能编译出程序 ^(E:\比赛 是中文路径, 链接会失败^)
 echo.
 
@@ -52,12 +53,12 @@ set "NAME="
 set /p "NAME=      题目名 (直接回车 = 不归档): "
 if "%NAME%"=="" goto skiparc
 
-set "DEST=D:\cpp\solutions\%NAME%.c"
+set "DEST=D:\cpp\solutions\%NAME%%SEX%"
 
 if not exist "%DEST%" goto docopy
 
 echo.
-echo       [注意] solutions\%NAME%.c 已经存在了!
+echo       [注意] solutions\%NAME%%SEX% 已经存在了!
 set "ANS="
 set /p "ANS=      覆盖它吗? 输入 Y 覆盖, 直接回车跳过: "
 if /i not "%ANS%"=="Y" goto skiparc
@@ -65,7 +66,7 @@ echo.
 
 :docopy
 copy /y "%SRC%" "%DEST%" >nul
-if errorlevel 1 (echo       [错误] 复制失败) else (echo       已归档  -^>  solutions\%NAME%.c)
+if errorlevel 1 (echo       [错误] 复制失败) else (echo       已归档  -^>  solutions\%NAME%%SEX%)
 echo.
 goto commit
 
@@ -75,7 +76,7 @@ echo.
 goto commit
 
 :nosrc
-echo       [警告] 没找到任何 .c 文件, 这次不归档。
+echo       [警告] 没找到任何 .c / .cpp 文件, 这次不归档。
 echo.
 
 :commit
