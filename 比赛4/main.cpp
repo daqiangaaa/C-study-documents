@@ -1,31 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
-const char *pat[10][5]
-{
-    {"XXX","X.X","X.X","X.X","XXX"},
-    {"..X","..X","..X","..X","..X"},
-    {"XXX","..X","XXX","X..","XXX"},
-    {"XXX","..X","XXX","..X","XXX"},
-    {"X.X","X.X","XXX","..X","..X"},
-    {"XXX","X..","XXX","..X","XXX"},
-    {"XXX","X..","XXX","X.X","XXX"},
-    {"XXX","..X","..X","..X","..X"},
-    {"XXX","X.X","XXX","X.X","XXX"},
-    {"XXX","X.X","XXX","..X","XXX"},
-};
+
+int a[] = {3, 9, 4, 7, 1};
+int n = 5;
+
 int main()
 {
-    int n;
-    string s;
-    cin>>n;
-    cin>>s;
-    for(int i=0; i<5; i++)
-    {
-        for(int j=0; j<n; j++)
-        {
-            printf("%s",pat[s[j]-'0'][i]);
-            if(j!=n-1)cout<<".";
-            else cout<<"\n";
-        }
+    int mx = 0, mn = 0;
+    for (int i = 0; i < n; i++) {
+        if (a[i] > mx) mx = a[i];
+        if (a[i] < mn) mn = a[i];
     }
+    cout << mx << " " << mn << "\n";
+    return 0;
 }
