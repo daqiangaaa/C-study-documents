@@ -1,4 +1,4 @@
-﻿# 查警告.ps1 —— gcc 警告翻译器
+# 查警告.ps1 —— gcc 警告翻译器
 # 用法一：双击 D:\cpp\查警告.bat（会读剪贴板里那一行编译输出）
 # 用法二：D:\cpp\查警告.bat -Wmaybe-uninitialized
 $ErrorActionPreference = 'Continue'
@@ -107,4 +107,4 @@ if ($names.Count -eq 0) {
     }
     if ($hit -eq 0) { Say '' }
 }
-Say '--- 表里没有的警告：把编译输出那一整行发给学长，补进表里下次就有了 ---'
+Say '--- 表里没有的警告：把编译输出那一整行贴给 AI 助手，补进表里下次就有了 ---'
