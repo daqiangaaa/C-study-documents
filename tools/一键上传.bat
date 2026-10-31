@@ -33,7 +33,7 @@ echo [1/4] 归档当前题解
 echo.
 
 set "SRC="
-for /f "usebackq delims=" %%F in (`powershell -NoProfile -Command "$all=@(); $all += Get-ChildItem 'D:\cpp' -Recurse -Include *.c,*.cpp -File -ErrorAction SilentlyContinue; $all += Get-ChildItem 'E:\' -Recurse -Depth 1 -File -Include *.c,*.cpp -ErrorAction SilentlyContinue; $f=$null; foreach($x in $all){ if($x.FullName -like '*\solutions\*' -or $x.FullName -like '*\obj\*' -or $x.FullName -like '*\bin\*' -or $x.FullName -like '*\.git\*' -or $x.FullName -like '*\_recovered\*' -or $x.FullName -like '*\.npm-cache\*'){continue}; if($f -eq $null -or $x.LastWriteTime -gt $f.LastWriteTime){$f=$x} }; if($f){$f.FullName}"`) do set "SRC=%%F"
+for /f "usebackq delims=" %%F in (`powershell -NoProfile -Command "$all=@(); $all += Get-ChildItem 'D:\cpp' -Recurse -Include *.c,*.cpp -File -ErrorAction SilentlyContinue; $all += Get-ChildItem 'E:\比赛\*' -Include *.c,*.cpp -File -ErrorAction SilentlyContinue; $f=$null; foreach($x in $all){ if($x.FullName -like '*\solutions\*' -or $x.FullName -like '*\obj\*' -or $x.FullName -like '*\bin\*' -or $x.FullName -like '*\.git\*' -or $x.FullName -like '*\_recovered\*' -or $x.FullName -like '*\.npm-cache\*'){continue}; if($f -eq $null -or $x.LastWriteTime -gt $f.LastWriteTime){$f=$x} }; if($f){$f.FullName}"`) do set "SRC=%%F"
 
 if "%SRC%"=="" goto nosrc
 
