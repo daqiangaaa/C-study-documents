@@ -8,7 +8,6 @@ echo             题 解 一 键 上 传
 echo ==============================================
 echo.
 
-set "GITP="
 set "RURL="
 for /f "delims=" %%u in ('git remote get-url origin 2^>nul') do set "RURL=%%u"
 if "%RURL%"=="" (
@@ -17,16 +16,7 @@ if "%RURL%"=="" (
   exit /b 1
 )
 
-echo %RURL% | findstr /i "github.com" >nul
-if errorlevel 1 goto noproxy
-
-set "PEN="
-set "PSRV="
-for /f "tokens=2,*" %%a in ('reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable 2^>nul ^| findstr /i "ProxyEnable"') do set "PEN=%%b"
-for /f "tokens=2,*" %%a in ('reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer 2^>nul ^| findstr /i "ProxyServer"') do set "PSRV=%%b"
-if /i "%PEN%"=="0x1" if not "%PSRV%"=="" set "GITP=-c http.proxy=http://%PSRV%"
-:noproxy
-if "%GITP%"=="" (echo [上传目标] %RURL%  ^(直连^)) else (echo [上传目标] %RURL%  ^(经加速器 %PSRV%^))
+echo [上传目标] %RURL%
 echo.
 
 echo [1/4] 归档当前题解
@@ -89,13 +79,13 @@ git commit -m "%MSG%"
 
 echo.
 echo [3/4] 上传到 Gitee...
-git %GITP% push -u origin main
+git push -u origin main
 if not errorlevel 1 goto ghsync
 
 echo.
 echo       第一次没成, 合并远程已有内容后再传一次...
-git %GITP% pull origin main --allow-unrelated-histories --no-rebase --no-edit
-git %GITP% push -u origin main
+git pull origin main --allow-unrelated-histories --no-rebase --no-edit
+git push -u origin main
 if not errorlevel 1 goto ghsync
 
 echo.
@@ -114,19 +104,13 @@ echo [4/4] 同步到 GitHub...
 git remote get-url github >nul 2>&1
 if errorlevel 1 goto nogh
 
-set "GPEN="
-set "GPSRV="
-for /f "tokens=2,*" %%a in ('reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable 2^>nul ^| findstr /i "ProxyEnable"') do set "GPEN=%%b"
-for /f "tokens=2,*" %%a in ('reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer 2^>nul ^| findstr /i "ProxyServer"') do set "GPSRV=%%b"
-set "GGITP="
-if /i "%GPEN%"=="0x1" if not "%GPSRV%"=="" set "GGITP=-c http.proxy=http://%GPSRV%"
 
-git %GGITP% push github main
+git push github main
 if not errorlevel 1 goto ghok
 
 echo       GitHub 第一次没成, 合并后再试一次...
-git %GGITP% pull github main --allow-unrelated-histories --no-rebase --no-edit -X ours
-git %GGITP% push github main
+git pull github main --allow-unrelated-histories --no-rebase --no-edit -X ours
+git push github main
 if not errorlevel 1 goto ghok
 
 echo.
