@@ -14,22 +14,21 @@ int main(){
     for(int i=0;i<n*m;i++){
         int j = ord[i]-1;
         int k = cnt[j];
-        int macc=mac[j][k];
-        int len=cost[j][k];
-        int t=fin[j];
+        int macc = mac[j][k];
+        int len = cost[j][k];
+        int t = fin[j];
         while (true) {
-    bool ok = true;
-    for (int u = t; u < t + len; u++)
-        if (busy[macc][u]) { ok = false; break; }
-    if (ok) break;
-    t++;
-}
+            bool ok = true;
+            for (int u = t; u < t + len; u++)
+                if (busy[macc][u]) { ok = false; break; }
+            if (ok) break;
+            t++;
+        }
         for (int u = t; u < t + len; u++) busy[macc][u] = true;
-fin[j] = t + len;
-cnt[j]++;
+        fin[j] = t + len;
+        cnt[j]++;
     }
     int ans = 0;
-for (int j = 0; j < n; j++)
-    ans = max(ans, fin[j]);
-cout << ans << '\n';
+    for (int j = 0; j < n; j++) ans = max(ans, fin[j]);
+    cout << ans << '\n';
 }
