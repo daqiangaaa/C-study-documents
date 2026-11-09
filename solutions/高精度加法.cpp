@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// ¶ÁÈëÒ»¸öÊı£¬µ¹Ğò´æ£ºv[0] ÊÇ¸öÎ»
+// è¯»å…¥ä¸€ä¸ªæ•°ï¼Œå€’åºå­˜ï¼šv[0] æ˜¯ä¸ªä½
 vector<int> readNum(){
     string s; cin >> s;
     vector<int> v;
@@ -9,7 +9,7 @@ vector<int> readNum(){
     return v;
 }
 
-// ´òÓ¡£¬È¥µôÇ°µ¼ 0£»È«ÊÇ 0 ¾Í´òÓ¡Ò»¸ö 0
+// æ‰“å°ï¼Œå»æ‰å‰å¯¼ 0ï¼›å…¨æ˜¯ 0 å°±æ‰“å°ä¸€ä¸ª 0
 void printNum(const vector<int>& v){
     int i = (int)v.size() - 1;
     while (i > 0 && v[i] == 0) i--;
@@ -17,7 +17,7 @@ void printNum(const vector<int>& v){
     cout << '\n';
 }
 
-// ¼Ó·¨£º³¤¶È²»ÓÃ¶ÔÆë£¬½øÎ»µ½Í·×Ô¶¯Í£
+// åŠ æ³•ï¼šé•¿åº¦ä¸ç”¨å¯¹é½ï¼Œè¿›ä½åˆ°å¤´è‡ªåŠ¨åœ
 vector<int> add(const vector<int>& a, const vector<int>& b){
     vector<int> c;
     int carry = 0;
